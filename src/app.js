@@ -1,80 +1,91 @@
-if (document.readyState === 'complete') {
+// GENERATE EQUATION
+var score = 0;
+if (localStorage.highScore) {
+    document.getElementById('highscore').innerHTML = localStorage.highScore;
+}
+generateEquation();
 
-    console.log('testing');
+// SCORE++
 
-    // GENERATE EQUATION
-        var start = 2000;
-        var remaining = 2000;
-        generateEquation();
+// CLICK ANSWER
 
-        // SCORE++
+// GET CLICKED ANSWER VALUE
+var clicked = document.getElementsByClassName('btn-game')[0].value;
 
-        // CLICK ANSWER
+// CHECK ANSWER
+    // IF CORRECT NEW EQUATION, START AGAIN
+    // ELSEIF WRONG RECORD SCORE, GAME OVER
+matchAnswer(clicked);
 
-        // GET CLICKED ANSWER VALUE
-        var clicked = document.getElementByClassName('btn-game').value;
+// DECREASE TIMER
+startTimer(200);
+// setInterval(updateTimer(start, remaining), 10);
 
-        // CHECK ANSWER
-            // IF CORRECT NEW EQUATION, START AGAIN
-            // ELSEIF WRONG RECORD SCORE, GAME OVER
-        matchAnswer(clicked);
-
-        // DECREASE TIMER
-        setInterval(updateTimer(), 10);
-
-    // GAME OVER
-
+// GAME OVER
 
 
 
-    // Create a new equation
-    function generateEquation() {
+/* F U N C T I O N S */
 
-        // Set new equation values
-        var x = getRandomInt();
-        var y = getRandomInt();
-        var z = getRandomInt(); // maybe this should be calculated to be convincing if false
-        document.getElementById('xInt').innerHTML = x;
-        document.getElementById('yInt').innerHTML = y;
-        document.getElementById('zInt').innerHTML = z;
+// Create a new equation
+function generateEquation() {
 
-    }
+    // Set new equation values
+    var x = getRandomInt();
+    var y = getRandomInt();
+    var z = getRandomInt(); // maybe this should be calculated to be convincing if false
 
-    // Get a random integer between 1 (inclusive) and 12 (inclusive)
-    function getRandomInt() {
-        var min = 1;
-        var max = 12;
-        return Math.floor(Math.random() * (max - min + 1)) + min;
-    }
+    document.getElementById('xInt').innerHTML = x;
+    document.getElementById('yInt').innerHTML = y;
+    document.getElementById('zInt').innerHTML = z;
 
-    // Determine if given answer matches correct answer
-    function matchAnswer(clicked) {
-        var x = document.getElementById('xInt');
-        var y = document.getElementById('yInt');
-        var z = document.getElementById('answer');
-        var answer = intval(x) + intval(y);
+}
 
-        if ((answer == z && clicked == 'yes') || (answer != z && clicked == 'no')) {
-            newLevel();
-        } else {
-            gameOver();
+// Get a random integer between 1 (inclusive) and 12 (inclusive)
+function getRandomInt() {
+    var min = 1;
+    var max = 12;
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+// Determine if given answer matches correct answer
+function matchAnswer(clicked) {
+    var x = document.getElementById('xInt');
+    var y = document.getElementById('yInt');
+    var z = document.getElementById('answer');
+    var answer = parseInt(x) + parseInt(y);
+
+    if ((answer == z && clicked == 'yes') || (answer != z && clicked == 'no')) {
+        // User answer is correct
+        score++;
+        newLevel();
+    } else {
+        // User answer incorrect, record score
+        if (localStorage.highScore) {
+            if (localStorage.highScore < score) {
+                localStorage.highScore = score;
+            }
         }
+        gameOver();
     }
+}
 
-    // Decrease remaining timer and the width of the timer bar
-    function decreaseTimer(start, remaining) {
-        var bar = document.getElementById('loader');
+function gameOver() {
 
-        if (remaining <= 0) {
-            // timer has run out - game over
+    return true;
+}
+
+function startTimer(timer) {
+    var initTime = timer;
+    var bar = document.getElementById('loader');
+    setInterval(function() {
+        if (timer <= 0) {
+            clearInterval(startTimer);
             gameOver();
-            clearInterval(timer);
+            return;
         } else {
-            // decrease timer
-            remaining - 10;
-            bar.style.width = ((remaining / start) * 100) + '%';
-            console.log(remaining);
+            timer --;
+            bar.style.width = ((timer / initTime) * 100) + '%';
         }
-    }
-    
+    }, 10); //10 will  run it every 100th of a second
 }
