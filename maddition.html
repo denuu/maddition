@@ -8,46 +8,64 @@
         <link rel="stylesheet" type="text/css" href="src/app.css">
     </head>
     <body>
+
+        <div id="game-over">
+            <div class="vertical-center">
+                <div class="popup center">
+                    <h2 class="vertical-center">
+                        GAME OVER
+                        <br />
+                        Score: <span id="final-score">0</span>
+                    </h2>
+                </div>
+                <button id="play" class="btn-menu horizontal-center" onclick="generateEquation()">
+                    <svg width="24" height="24" viewBox="0 0 24 24">
+                        <path d="M3 22v-20l18 10-18 10z"/>
+                    </svg>
+                </button>
+            </div>
+
+        </div>
+
         <div id="frame" class="">
 
             <div id="timer">
-
                 <div id="loading-bar" class="loading-bar">
-                    <div id="loader" class="loader">
-
-                    </div>
+                    <div id="loader" class="loader"></div>
                 </div>
-
             </div>
 
             <div id="score-display">
-                <h4>High Score: <span id="highscore">0</span></h4>
+                <h2>
+                    <span id="highscore">0</span>
+                </h2>
             </div>
 
             <div id="board" class="card">
-
-                <div id="equation" class="center">
+                <div id="equation" class="center vertical-center">
                     <h1>
                         <span id="xInt">X</span> + <span id="yInt">Y</span>
                     </h1>
                 </div>
-
-                <div id="bottom" class="center">
-                    <h1 id="answer">
+                <div id="answer" class="center vertical-center">
+                    <h1>
                          = <span id="zInt">Z</span>
                     </h1>
                 </div>
-
             </div>
 
             <div id="controls" class="">
 
                 <button id="yes" value="yes" class="btn-game" onclick="matchAnswer(this.value)">
-                    √
+                    <svg width="24" height="24" viewBox="0 0 24 24">
+                        <path d="M20.285 2l-11.285 11.567-5.286-5.011-3.714 3.716 9 8.728 15-15.285z"/>
+                    </svg>
                 </button>
 
                 <button id="no" value="no" class="btn-game" onclick="matchAnswer(this.value)">
-                    X
+                    <svg width="24" height="24" viewBox="0 0 24 24">
+                        <path d="M24 20.188l-8.315-8.209 8.2-8.282-3.697-3.697-8.212 8.318-8.31-8.203-3.666 3.666 8.321 8.24-8.206 8.313 3.666 3.666 8.237-8.318 8.285 8.203z"/>
+                    </svg>
                 </button>
 
             </div>

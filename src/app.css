@@ -1,7 +1,25 @@
+@import url('https://fonts.googleapis.com/css?family=Kanit:300,400,700,800,900');
+
 body {
     padding: 0;
     margin: 0;
+    background: #4B90E3;
+    color: white;
+    font-family: 'Kanit', sans-serif;
 }
+
+h1 {
+    font-weight: 900;
+    margin: 0;
+}
+
+h2 {
+    font-weight: 700;
+    font-size: 2em;
+    margin: 0.1em;
+}
+
+/* G A M E */
 
 #frame {
     /*padding: 1em;*/
@@ -9,25 +27,37 @@ body {
 
 /* LOADER */
 .loading-bar {
-    height: 2em;
+    height: 1.5em;
     background: rgba(0, 0, 0, 0.2);
 }
 
 .loader {
     width: 100%;
-    height: 2em;
-    background: aqua;
+    height: 1.5em;
+    background: #feffff;
+}
+
+#score-display {
+    position: fixed;
+    top: 1em;
+    right: 0.5em;
+    float: right;
+    display: inline-flex;
+    color: #FEC42E;
 }
 
 /* BOARD */
 #board {
     width: 100%;
     height: 50vh;
+    font-size: 3em;
 }
 
 .card {
-    border-radius: 2px;
-    box-shadow: 0 1px 2px 2px rgba(0, 0, 0, 0.4);
+    text-align: center;
+    vertical-align: middle;
+    /*border-radius: 2px;
+    box-shadow: 0 1px 2px 2px rgba(0, 0, 0, 0.4);*/
 }
 
 .center {
@@ -42,10 +72,78 @@ body {
 }
 
 .btn-game {
-    width: 45vw;
-    height: 5em;
+    position: fixed;
+    bottom: 0.5em;
+    width: calc(50vw - 0.75em);
+    height: 25vh;
     box-shadow: 0 1px 2px 2px rgba(0, 0, 0, 0.4);
     background: white;
     border: none;
-    /*border-radius: 50%;*/
+    border-radius: 3px;
+    color: rgba(0, 0, 0, 0.5);
+}
+
+.btn-game svg {
+    height: 50%;
+    width: auto;
+    fill: currentColor;
+}
+
+#yes {
+    left: 0.5em;
+    background: #92D058;
+}
+
+#no {
+    right: 0.5em;
+    background: #F2765D;
+}
+
+.vertical-center {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.horizontal-center {
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* G A M E   O V E R */
+#game-over {
+    position: fixed;
+    background: rgba(75, 144, 227, 0.5);
+    /*background: #4B90E3;*/
+    width: 100vw;
+    height: 100vh;
+    z-index: 100;
+    /*display: none*/
+}
+
+.popup {
+    background: #526C8A;
+    width: 50vw;
+    height: 50vh;
+    margin-left: 25vw;
+    border-radius: 3px;
+    box-shadow: 0 1px 2px 2px rgba(0, 0, 0, 0.4);
+}
+
+.btn-menu {
+    padding: 3em;
+    width: 150px;
+    margin-top: 1em;
+    box-shadow: 0 1px 2px 2px rgba(0, 0, 0, 0.4);
+    background: white;
+    border: none;
+    border-radius: 3px;
+    color: rgba(0, 0, 0, 0.5);
+}
+
+.btn-menu svg {
+    height: 50px;
+    width: auto;
+    fill: currentColor;
 }

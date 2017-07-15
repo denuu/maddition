@@ -1,6 +1,9 @@
-// BEGIN THE GAME
+var popup = document.getElementById('game-over');
+var bar = document.getElementById('loader');
 var score = 0;
 var countdown = null;
+
+//
 if (localStorage.highScore) {
     document.getElementById('highscore').innerHTML = localStorage.highScore;
 }
@@ -12,6 +15,12 @@ generateEquation();
 
 // Create a new equation
 function generateEquation() {
+
+    // Hide popup if visible
+    if (isVisible(popup)) {
+        popup.style.display = 'none';
+        bar.style.width = '100%';
+    }
 
     // Set new equation values
     var x = createRandomInt();
@@ -74,10 +83,10 @@ function matchAnswer(clicked) {
     }
 }
 
+// Present GAME OVER dialogue, save/set score
 function gameOver() {
 
-    console.log('GAME OVER');
-    console.log('score: '+score);
+    popup.style.display = 'initial';
     clearInterval(countdown);
     if (localStorage.highScore) {
         if (localStorage.highScore < score) {
@@ -91,10 +100,10 @@ function gameOver() {
 
 }
 
+// Start the decreasing timer for this level
 function startTimer(timer) {
 
     var initTime = timer;
-    var bar = document.getElementById('loader');
     countdown = setInterval(function() {
         if (timer <= 0) {
             gameOver();
@@ -105,4 +114,9 @@ function startTimer(timer) {
         }
     }, 10);
 
+}
+
+// Deternine if element is visible or not
+function isVisible(e) {
+    return !!( e.offsetWidth || e.offsetHeight || e.getClientRects().length );
 }
