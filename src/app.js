@@ -1,29 +1,12 @@
-// GENERATE EQUATION
+// BEGIN THE GAME
 var score = 0;
+var countdown = null;
 if (localStorage.highScore) {
     document.getElementById('highscore').innerHTML = localStorage.highScore;
 }
+
+// GENERATE EQUATION
 generateEquation();
-
-// SCORE++
-
-// CLICK ANSWER
-
-// GET CLICKED ANSWER VALUE
-var clicked = document.getElementsByClassName('btn-game')[0].value;
-
-// CHECK ANSWER
-    // IF CORRECT NEW EQUATION, START AGAIN
-    // ELSEIF WRONG RECORD SCORE, GAME OVER
-matchAnswer(clicked);
-
-// DECREASE TIMER
-startTimer(200);
-// setInterval(updateTimer(start, remaining), 10);
-
-// GAME OVER
-
-
 
 /* F U N C T I O N S */
 
@@ -31,9 +14,9 @@ startTimer(200);
 function generateEquation() {
 
     // Set new equation values
-    var x = getRandomInt();
-    var y = getRandomInt();
-    var z = getRandomInt(); // maybe this should be calculated to be convincing if false
+    var x = createRandomInt();
+    var y = createRandomInt();
+    var z = createAnswer(x, y); // maybe this should be calculated to be convincing if false
 
     document.getElementById('xInt').innerHTML = x;
     document.getElementById('yInt').innerHTML = y;
@@ -42,50 +25,84 @@ function generateEquation() {
 }
 
 // Get a random integer between 1 (inclusive) and 12 (inclusive)
-function getRandomInt() {
-    var min = 1;
-    var max = 12;
-    return Math.floor(Math.random() * (max - min + 1)) + min;
+function createRandomInt() {
+    return Math.floor(Math.random() * 12) + 1;
+}
+
+// Generate correct answer, or incorrect answer that appears close to true
+function createAnswer(x, y) {
+
+    var lie = Math.floor(Math.random() * 2) + 1;
+    var z = parseInt(x) + parseInt(y);
+
+    if (lie == 2) {
+
+        var offset = Math.floor(Math.random() * Math.min(x, y)) + 1;
+        var charge = Math.random() < 0.5 ? -1 : 1;
+        offset = charge * offset;
+        z = z + offset;
+
+    }
+
+    return z;
+
 }
 
 // Determine if given answer matches correct answer
 function matchAnswer(clicked) {
-    var x = document.getElementById('xInt');
-    var y = document.getElementById('yInt');
-    var z = document.getElementById('answer');
+
+    var x = document.getElementById('xInt').innerHTML;
+    var y = document.getElementById('yInt').innerHTML;
+    var z = document.getElementById('zInt').innerHTML;
     var answer = parseInt(x) + parseInt(y);
 
     if ((answer == z && clicked == 'yes') || (answer != z && clicked == 'no')) {
+
         // User answer is correct
+        console.log('correct!');
         score++;
-        newLevel();
+        generateEquation();
+        clearInterval(countdown);
+        startTimer(125);
+
     } else {
+
         // User answer incorrect, record score
-        if (localStorage.highScore) {
-            if (localStorage.highScore < score) {
-                localStorage.highScore = score;
-            }
-        }
+        console.log('incorrect');
         gameOver();
+
     }
 }
 
 function gameOver() {
 
-    return true;
+    console.log('GAME OVER');
+    console.log('score: '+score);
+    clearInterval(countdown);
+    if (localStorage.highScore) {
+        if (localStorage.highScore < score) {
+            localStorage.highScore = score;
+        }
+    } else {
+        localStorage.highScore = score;
+    }
+    document.getElementById('highscore').innerHTML = localStorage.highScore;
+    score = 0;
+
 }
 
 function startTimer(timer) {
+
     var initTime = timer;
     var bar = document.getElementById('loader');
-    setInterval(function() {
+    countdown = setInterval(function() {
         if (timer <= 0) {
-            clearInterval(startTimer);
             gameOver();
             return;
         } else {
             timer --;
             bar.style.width = ((timer / initTime) * 100) + '%';
         }
-    }, 10); //10 will  run it every 100th of a second
+    }, 10);
+
 }
