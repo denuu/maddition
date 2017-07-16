@@ -1,17 +1,17 @@
 var popup = document.getElementById('game-over');
 var bar = document.getElementById('loader');
+var currentScore = document.getElementById('current-score');
+var highScore = document.getElementById('high-score');
 var score = 0;
 var countdown = null;
 
-//
+// Set existing high score if exists
 if (localStorage.highScore) {
-    document.getElementById('highscore').innerHTML = localStorage.highScore;
+    highScore.innerHTML = localStorage.highScore;
 }
 
-// GENERATE EQUATION
+// Generate an equation to begin with
 generateEquation();
-
-/* F U N C T I O N S */
 
 // Create a new equation
 function generateEquation() {
@@ -35,7 +35,9 @@ function generateEquation() {
 
 // Get a random integer between 1 (inclusive) and 12 (inclusive)
 function createRandomInt() {
+
     return Math.floor(Math.random() * 12) + 1;
+
 }
 
 // Generate correct answer, or incorrect answer that appears close to true
@@ -68,8 +70,8 @@ function matchAnswer(clicked) {
     if ((answer == z && clicked == 'yes') || (answer != z && clicked == 'no')) {
 
         // User answer is correct
-        console.log('correct!');
         score++;
+        currentScore.innerHTML = score;
         generateEquation();
         clearInterval(countdown);
         startTimer(125);
@@ -77,10 +79,12 @@ function matchAnswer(clicked) {
     } else {
 
         // User answer incorrect, record score
-        console.log('incorrect');
+        currentScore.innerHTML = 0;
+        document.getElementById('final-score').innerHTML = score;
         gameOver();
 
     }
+
 }
 
 // Present GAME OVER dialogue, save/set score
@@ -95,7 +99,7 @@ function gameOver() {
     } else {
         localStorage.highScore = score;
     }
-    document.getElementById('highscore').innerHTML = localStorage.highScore;
+    highScore.innerHTML = localStorage.highScore;
     score = 0;
 
 }
@@ -118,5 +122,7 @@ function startTimer(timer) {
 
 // Deternine if element is visible or not
 function isVisible(e) {
-    return !!( e.offsetWidth || e.offsetHeight || e.getClientRects().length );
+
+    return !!(e.offsetWidth || e.offsetHeight || e.getClientRects().length);
+
 }
