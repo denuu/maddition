@@ -34,7 +34,7 @@ h2 {
 .loader {
     width: 100%;
     height: 1.5em;
-    background: #feffff;
+    background: rgba(255, 255, 255, 0.7);
 }
 
 #score-display {
@@ -43,7 +43,6 @@ h2 {
     right: 0.5em;
     float: right;
     display: inline-flex;
-    color: #FEC42E;
 }
 
 /* BOARD */
