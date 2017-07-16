@@ -1,14 +1,15 @@
-<!-- M A D D I T I O N -->
-
-<!DOCTYLE HTML>
+<!DOCTYPE html>
 <html>
 
     <head>
         <title>Maddition</title>
+        <meta name="author" content="Denis Nossevitch">
+        <meta charset="UTF-8">
         <link rel="stylesheet" type="text/css" href="src/app.css">
     </head>
-    <body>
 
+    <body>
+        <!-- Game Over popup menu -->
         <div id="game-over">
             <div class="vertical-center">
                 <div class="popup center">
@@ -26,54 +27,54 @@
                     </svg>
                 </button>
             </div>
-
         </div>
 
-        <div id="frame" class="">
-
-            <div id="timer">
-                <div id="loading-bar" class="loading-bar">
-                    <div id="loader" class="loader"></div>
-                </div>
+        <!-- Timer bar -->
+        <div>
+            <div class="loading-bar">
+                <div id="loader" class="loader"></div>
             </div>
-
-            <div id="score-display">
-                <h2>
-                    <span id="current-score">0</span>
-                </h2>
-            </div>
-
-            <div id="board" class="card">
-                <div id="equation" class="center vertical-center">
-                    <h1>
-                        <span id="xInt">X</span> + <span id="yInt">Y</span>
-                    </h1>
-                </div>
-                <div id="answer" class="center vertical-center">
-                    <h1>
-                         = <span id="zInt">Z</span>
-                    </h1>
-                </div>
-            </div>
-
-            <div id="controls" class="">
-
-                <button id="yes" value="yes" class="btn-game" onclick="matchAnswer(this.value)">
-                    <svg width="24" height="24" viewBox="0 0 24 24">
-                        <path d="M20.285 2l-11.285 11.567-5.286-5.011-3.714 3.716 9 8.728 15-15.285z"/>
-                    </svg>
-                </button>
-
-                <button id="no" value="no" class="btn-game" onclick="matchAnswer(this.value)">
-                    <svg width="24" height="24" viewBox="0 0 24 24">
-                        <path d="M24 20.188l-8.315-8.209 8.2-8.282-3.697-3.697-8.212 8.318-8.31-8.203-3.666 3.666 8.321 8.24-8.206 8.313 3.666 3.666 8.237-8.318 8.285 8.203z"/>
-                    </svg>
-                </button>
-
-            </div>
-
         </div>
+
+        <!-- Current score display -->
+        <div id="score-display">
+            <h2>
+                <span id="current-score">0</span>
+            </h2>
+        </div>
+
+        <!-- Game board with current level content -->
+        <div id="board">
+            <!-- Question -->
+            <div id="equation" class="center vertical-center">
+                <h1>
+                    <span id="xInt">X</span> + <span id="yInt">Y</span>
+                </h1>
+            </div>
+            <!-- Answer -->
+            <div class="center vertical-center">
+                <h1>
+                     = <span id="zInt">Z</span>
+                </h1>
+            </div>
+        </div>
+
+        <!-- Game controls -->
+        <div id="controls">
+            <button id="yes" value="yes" class="btn-game" onclick="matchAnswer(this.value)">
+                <svg width="24" height="24" viewBox="0 0 24 24">
+                    <path d="M20.285 2l-11.285 11.567-5.286-5.011-3.714 3.716 9 8.728 15-15.285z"/>
+                </svg>
+            </button>
+            <button id="no" value="no" class="btn-game" onclick="matchAnswer(this.value)">
+                <svg width="24" height="24" viewBox="0 0 24 24">
+                    <path d="M24 20.188l-8.315-8.209 8.2-8.282-3.697-3.697-8.212 8.318-8.31-8.203-3.666 3.666 8.321 8.24-8.206 8.313 3.666 3.666 8.237-8.318 8.285 8.203z"/>
+                </svg>
+            </button>
+        </div>
+
     </body>
+
     <footer>
         <script src="src/app.js"></script>
     </footer>
